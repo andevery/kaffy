@@ -318,6 +318,11 @@ defmodule Kaffy.ResourceForm do
     end
   end
 
+  def kaffy_input(conn, changeset, form, field, %{render_form: render_form} = options)
+      when is_function(render_form) do
+    render_form.(conn, changeset, form, field, options)
+  end
+
   def kaffy_input(conn, changeset, form, field, options) do
     ft = Kaffy.ResourceSchema.field_type(changeset.data.__struct__, field)
 
